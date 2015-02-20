@@ -1,0 +1,11 @@
+// https://github.com/gmeluski/react-twitter.git
+{
+  "name": "gregg's react twitter",
+  "version": "0.0.0",
+  "main": "app.js",
+  "scripts": {},
+  "author": "",
+  "dependencies": {},
+  "devDependencies": {}
+}
+

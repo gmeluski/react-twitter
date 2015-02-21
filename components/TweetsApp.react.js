@@ -69,4 +69,39 @@ module.exports = TweetsApp = React.createClass({
       this.getPage(this.state.page);
     }
   },
+
+  getPage: function () {
+    var request = new XMLHttpRequest(), self=this;
+    request.open('GET', 'page/' + page + '/' + this.state.skip, true);
+    request.onload = function () {
+      
+      if (request.staus >= 200 && request.status < 400) {
+        self.loadPagedTweets(JSON.parse(request.responseText));
+      } else {
+        self.setState({ paging: false, done: true });
+      }
+    
+    };
+
+    request.send();
+  },
+
+  loadPagedTweets: function (tweets) {
+    var self = this;
+
+    if (tweets.length > 0) {
+      var updated = this.state.tweets;
+
+      tweets.forEach(function (tweet) {
+        updated.push(tweet);
+      });
+
+      setTimeout(function () {
+        self.setState({ tweets: updated, paging: false}); 
+      }, 1000);
+    } else {
+      this.setState({ done: true, paging: false });
+    }
+  },
+
 });

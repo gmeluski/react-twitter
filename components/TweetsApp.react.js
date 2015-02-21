@@ -8,4 +8,17 @@ module.exports = TweetsApp = React.createClass({
       </div>
     )
   }
+
+  getInitialState: function (props) {
+    props = props || this.props;
+    
+    return {
+      tweets: props.tweets,
+      count: 0,
+      page: 0,
+      paging: false,
+      skip: 0,
+      done: false
+    };
+  },
 });

@@ -1,4 +1,4 @@
-var Reach = require('react');
+var React = require('react');
 var Tweets = require('./Tweets.react.js');
 var Loader = require('./Loader.react.js');
 var NotificationBar = require('./NotificationBar.react.js');

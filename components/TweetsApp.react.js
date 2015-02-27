@@ -1,3 +1,8 @@
+var Reach = require('react');
+var Tweets = require('./Tweets.react.js');
+var Loader = require('./Loader.react.js');
+var NotificationBar = require('./NotificationBar.react.js');
+
 module.exports = TweetsApp = React.createClass({
   render: function () {
     return (
@@ -7,11 +12,11 @@ module.exports = TweetsApp = React.createClass({
         <NotificationBar count={this.state.count} onShowNewTweets={this.shownewTweets} />
       </div>
     )
-  }
+  },
 
   getInitialState: function (props) {
     props = props || this.props;
-    
+
     return {
       tweets: props.tweets,
       count: 0,
@@ -45,12 +50,12 @@ module.exports = TweetsApp = React.createClass({
     updated.unshift(tweet);
     this.setState({ tweets: updated, count: count, skip: skip });
   },
-  
+
   showNewTweets: function () {
     var updated = this.state.tweets;
 
     updated.forEach(function(tweet){
-      tweet.active = true; 
+      tweet.active = true;
     });
 
     this.setState({ tweets: updated, count: 0});
@@ -64,7 +69,7 @@ module.exports = TweetsApp = React.createClass({
     var scrolled = (h + s) > document.body.offsetHeight;
 
     if (scrolled && !this.state.paging && !this.state.done) {
-      
+
       this.setState({ paging: true, page: this.state.page + 1});
       this.getPage(this.state.page);
     }
@@ -74,13 +79,13 @@ module.exports = TweetsApp = React.createClass({
     var request = new XMLHttpRequest(), self=this;
     request.open('GET', 'page/' + page + '/' + this.state.skip, true);
     request.onload = function () {
-      
+
       if (request.staus >= 200 && request.status < 400) {
         self.loadPagedTweets(JSON.parse(request.responseText));
       } else {
         self.setState({ paging: false, done: true });
       }
-    
+
     };
 
     request.send();
@@ -97,7 +102,7 @@ module.exports = TweetsApp = React.createClass({
       });
 
       setTimeout(function () {
-        self.setState({ tweets: updated, paging: false}); 
+        self.setState({ tweets: updated, paging: false});
       }, 1000);
     } else {
       this.setState({ done: true, paging: false });

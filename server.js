@@ -1,7 +1,7 @@
 var express = require('express');
 var http = require('http');
 var mongoose = require('mongoose');
-var twitter = require('ntwitter');
+var twitter = require('twitter');
 
 var routes = require('./routes');
 var config = require('./config');

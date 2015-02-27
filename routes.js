@@ -1,5 +1,5 @@
 var JSX = require('node-jsx').install();
-var Reach = require('react');
+var React = require('react');
 var TweetsApp = require('./components/TweetsApp.react');
 var Tweet = require('./models/Tweet');
 

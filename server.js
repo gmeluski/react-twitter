@@ -1,4 +1,5 @@
 var express = require('express');
+var exphbs = require('express-handlebars');
 var http = require('http');
 var mongoose = require('mongoose');
 var twitter = require('twitter');
@@ -9,6 +10,9 @@ var streamHandler = require('./utils/streamHandler');
 
 var app = express();
 var port = process.env.PORT || 8080;
+
+app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
 var twit, server, io;
 
@@ -27,6 +31,6 @@ server = http.createServer(app).listen(port, function () {
 
 io = require('socket.io').listen(server);
 
-twit.stream('statuses/filter', {track: 'scotch_io, #scotchio'}, function () {
+twit.stream('statuses/filter', {track: 'scotch_io, #scotchio'}, function (stream) {
   streamHandler(stream, io);
 });
